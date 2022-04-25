@@ -21,7 +21,7 @@ if(!require('tidyverse')) {
 
 print("Select the NCBI CSV file that you process !!!")
 
-Filters <- matrix(c("CSV File", ".csv", 
+Filters <- matrix(c("CSV File", "*NCBI*.csv", 
                     "All files", "*"),
                   4, 2, byrow = TRUE)
 
@@ -37,6 +37,10 @@ ncbi_csv_file <- read_csv(csv_file, col_types=cols(
 )) 
 
 print("Select the Ensembl CSV file that you process !!!")
+
+Filters <- matrix(c("CSV File", "*Ensembl*.csv", 
+                    "All files", "*"),
+                  4, 2, byrow = TRUE)
 
 csv_file <- tk_choose.files( default = "", caption = "Select Ensembl CSV File",
                              multi = FALSE, filter = Filters)
@@ -64,7 +68,7 @@ pb <- tkProgressBar( title = "Convart Standartize Fasta CSV",     # Title of bar
 
 foreach(i = 1:nrow(ensembl_csv_file)) %do% {
   ncbi_csv_file <- ncbi_csv_file %>% add_row(
-    name=ensembl_csv_file[i,]$name,
+    name=ensembl_csv_file[i,]$transcript,
     specie=ensembl_csv_file[i,]$specie,
     annotation=ensembl_csv_file[i,]$annotation,
     sequence=ensembl_csv_file[i,]$sequence,
@@ -74,5 +78,7 @@ foreach(i = 1:nrow(ensembl_csv_file)) %do% {
   
 }
 
-write.csv(ncbi_csv_file, "export.csv")
+fa_specie <- sub(" ", "_", ensembl_csv_file[1,]$specie)
+
+write.csv(ncbi_csv_file, sprintf("%s_Standartized.csv", fa_specie))
 close(pb)
