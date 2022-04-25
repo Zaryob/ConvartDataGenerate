@@ -1,0 +1,61 @@
+---
+title: "How are they Generated?"
+author: "Suleyman POYRAZ"
+date: "April 23, 2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Importing Data from Various Sources
+
+First of all, it is necessary to create the tables that will enable the search.
+So we need to get FASTA files from various sources like NCBI <https://www.ncbi.nlm.nih.gov/>
+and Ensembl <https://www.ensembl.org/info/data/ftp/index.html>
+Take Human (Homo saphiens) and Mouse (Mus musculus) fasta files.
+And then run `read_fasta.R` script to generate csv files.
+`read_fasta.R` will generate different meta csv files for you. You can use them for another project.
+For NCBI it generate a table like this:
+
+```{r, results='asis'}
+writeLines("td, th { padding : 6px } th { background-color : brown ; color : white; border : 1px solid white; } td { color : brown ; border : 1px solid brown }", con = "mystyle.css")
+ncbi_csv <- read_csv("ExampleFiles/ncbi_example.csv")
+knitr::kable(ncbi_csv, format = "html")
+```
+
+For ensembl:
+
+```{r, results='asis'}
+writeLines("td, th { padding : 6px } th { background-color : brown ; color : white; border : 1px solid white; } td { color : brown ; border : 1px solid brown }", con = "mystyle.css")
+ncbi_csv <- read_csv("ExampleFiles/ensembl_example.csv")
+knitr::kable(ncbi_csv, format = "html")
+```
+
+
+So it need to work data a bit more. I combine this two types into one type to standartize data. 
+
+I compared these two data types to ncbi. While doing this, I used the transcript id as the genome id.
+
+To do this, run the `standardize_fasta.R` file and select the ncbi and then ensembl csv files.
+
+
+## Create convart_gene and convart_gene_to_db Tables from Standartized Data
+
+
+
+
+
+## R Markdown
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r cars}
+summary(cars)
+```
+## Including Plots
+You can also embed plots, for example:
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
