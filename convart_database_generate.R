@@ -49,7 +49,7 @@ foreach (csv_file=csv_files, .combine='c') %do% {
     creation_date = col_character()
   )) 
   
-  
+   
   
   # Initializes the progress bar
   pb <- tkProgressBar( title = "Convart Database generate From Standartized CSV",     # Title of bar
