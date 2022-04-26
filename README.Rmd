@@ -40,7 +40,6 @@ I compared these two data types to ncbi. While doing this, I used the transcript
 
 To do this, run the `standardize_fasta.R` file and select the ncbi and then ensembl csv files.
 
-
 ## Create convart_gene and convart_gene_to_db Tables from Standartized Data
 
 
